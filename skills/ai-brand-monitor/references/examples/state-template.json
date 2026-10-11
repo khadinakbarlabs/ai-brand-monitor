@@ -1,0 +1,17 @@
+{
+  "schema_version": "ai-brand-monitor.state.v1",
+  "campaign_id": "northstar-notes-example",
+  "status": "proposal",
+  "brand": {"name": "Northstar Notes", "domain": "northstar.example", "aliases": ["Northstar Notes"], "competitors": ["Harbor Notes", "Cedar Workspace"]},
+  "market": "unspecified",
+  "language": "English",
+  "panel_version": "panel-1",
+  "platforms": ["perplexity", "chatgpt", "gemini"],
+  "authorization": null,
+  "budget": {"approved_cap_usd": null, "settled_charges_usd": 0, "reservations": []},
+  "runs": [],
+  "actions": [],
+  "corrections": [],
+  "monitoring": {"status": "not_configured", "schedule_id": null},
+  "sample_data": true
+}

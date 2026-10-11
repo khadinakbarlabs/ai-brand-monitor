@@ -1,0 +1,6 @@
+interface:
+  display_name: "Brand Audit"
+  short_description: "Collect a budgeted AI brand visibility baseline"
+  default_prompt: "Use $brand-audit to prepare exact brand questions, selected platforms and an approved spend cap."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Brand Trends"
+  short_description: "Compare matched brand reports and prior actions"
+  default_prompt: "Use $brand-trends to compare my selected monitoring runs and explain any coverage or model changes."
+policy:
+  allow_implicit_invocation: true

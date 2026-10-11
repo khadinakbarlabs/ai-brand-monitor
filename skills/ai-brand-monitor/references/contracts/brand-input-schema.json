@@ -1,0 +1,140 @@
+{
+  "title": "AI Search Brand Monitor \u2014 Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "brandName": {
+      "title": "Brand name",
+      "type": "string",
+      "description": "Use this field when the user provides their brand, company, product, or tool name to monitor (e.g., 'Ahrefs', 'HubSpot', 'Notion'). This is the primary brand to track across AI search results. Do NOT use this for competitor names \u2014 use the competitors field for those.",
+      "editor": "textfield",
+      "prefill": "Ahrefs"
+    },
+    "brandDomain": {
+      "title": "Brand domain",
+      "type": "string",
+      "description": "The primary website domain of the brand (e.g., 'ahrefs.com', 'hubspot.com'). Used to detect when the brand is cited as a source in AI search results. Leave empty if you only want to track text mentions.",
+      "editor": "textfield",
+      "prefill": "ahrefs.com"
+    },
+    "brandAliases": {
+      "title": "Brand aliases",
+      "type": "array",
+      "description": "Alternate names, acronyms, or handles the brand is known by (e.g., ['Ahrefs', 'ahrefs.com']). The actor will search for all of these in AI responses, not just the primary brand name. Useful for brands with common abbreviations.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      }
+    },
+    "competitors": {
+      "title": "Competitor brands to track",
+      "type": "array",
+      "description": "Use this field when the user wants to track competitor co-mentions \u2014 which competing brands appear in the same AI responses as their brand. Provide a list of competitor names (e.g., ['Semrush', 'Moz', 'Majestic']). Up to 10 competitors. Each response will show which of these were mentioned alongside your brand.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      }
+    },
+    "platforms": {
+      "title": "AI platforms to query",
+      "type": "array",
+      "description": "Use this field when the user says 'only check Perplexity', 'include Claude', or names specific platforms. Valid values: 'perplexity' (Sonar with native citations), 'chatgpt' (OpenAI web search), 'claude' (Claude Sonnet 4.5 with live web search), 'gemini' (Gemini 2.5 Flash with live web search). Defaults to Perplexity, ChatGPT, and Gemini. Add 'claude' explicitly for deep audits.",
+      "editor": "stringList",
+      "default": [
+        "perplexity",
+        "chatgpt",
+        "gemini"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "queryTemplates": {
+      "title": "Query template categories",
+      "type": "array",
+      "description": "Use customQueries instead when the user provides specific questions. For standard checks, select from: 'best_tools' (category roundups), 'alternatives' (what are alternatives to X), 'recommendations' (should I use X), 'reviews' (user sentiment), 'comparisons' (X vs competitors). Defaults to best_tools, alternatives, recommendations.",
+      "editor": "stringList",
+      "default": [
+        "best_tools",
+        "alternatives",
+        "recommendations"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "customQueries": {
+      "title": "Custom queries",
+      "type": "array",
+      "description": "Exact questions or prompts to submit to the selected AI platforms (e.g., 'Which SEO tool has the best backlink database?'). Choose Query source = Custom queries only to run these prompts without any built-in template queries. In the combined mode, custom queries run first and remaining capacity can be filled by selected templates.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      }
+    },
+    "querySelectionMode": {
+      "title": "Query source",
+      "type": "string",
+      "description": "Controls which queries this run uses. Choose 'Custom queries only' when you want only the exact prompts in Custom queries; selected template categories are ignored, including the form defaults. Choose 'Templates only' for recurring template checks, or combine both sources when you want broader coverage.",
+      "enum": [
+        "templates_and_custom",
+        "custom_only",
+        "templates_only"
+      ],
+      "enumTitles": [
+        "Templates and custom queries (default)",
+        "Custom queries only",
+        "Templates only"
+      ],
+      "default": "templates_and_custom",
+      "editor": "select"
+    },
+    "maxQueriesPerPlatform": {
+      "title": "Max queries to run",
+      "type": "integer",
+      "description": "Maximum number of unique queries to submit per platform. Each query \u00d7 platform pair = one brand-query-checked event ($0.08). Default is 3 (12 checks = ~$0.96, fits within agent-payment ceilings). Use 5 for standard audits, 10 for deep audits. Maximum 20.",
+      "default": 3,
+      "minimum": 1,
+      "maximum": 20,
+      "editor": "number"
+    },
+    "responseFormat": {
+      "title": "Response detail level",
+      "type": "string",
+      "description": "Controls how much AI response text is stored per check. 'detailed' (default) keeps the first 800 chars of each AI response \u2014 best for human review and trend analysis. 'concise' keeps only the first 200 chars and trims mention context \u2014 best for AI agents (3\u00d7 smaller token footprint per record). Output schema is otherwise identical.",
+      "enum": [
+        "detailed",
+        "concise"
+      ],
+      "enumTitles": [
+        "Detailed (800 chars, default)",
+        "Concise (200 chars, agent-friendly)"
+      ],
+      "default": "detailed",
+      "editor": "select"
+    },
+    "industry": {
+      "title": "Industry / category",
+      "type": "string",
+      "description": "Your brand's industry or product category (e.g., 'SEO', 'CRM', 'email marketing', 'AI writing'). Used to make query templates more specific and relevant. If left empty, queries will use generic category language.",
+      "editor": "textfield",
+      "prefill": "AI content"
+    },
+    "webhookUrl": {
+      "title": "Webhook URL (optional)",
+      "type": "string",
+      "description": "An optional HTTPS URL to receive a POST request when the actor run completes. The payload will be the full run summary JSON including GEO score, mention rates, and recommendations. Useful for triggering downstream automation in Make.com, Zapier, n8n, or Slack.",
+      "editor": "textfield"
+    },
+    "demoMode": {
+      "title": "Demo / health check mode",
+      "type": "boolean",
+      "description": "Set to true to run a health check without making any AI API calls. The actor will exit successfully with an informational message. Useful for testing actor connectivity and Apify scheduling without consuming API credits.",
+      "editor": "checkbox",
+      "default": false
+    }
+  },
+  "required": [
+    "brandName"
+  ]
+}

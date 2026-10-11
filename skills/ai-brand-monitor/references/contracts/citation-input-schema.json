@@ -1,0 +1,112 @@
+{
+  "title": "AI Search Visibility Tracker \u2014 Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "targetDomain": {
+      "title": "Target domain to track",
+      "type": "string",
+      "description": "The website domain whose pages you want to track as cited sources in AI search results. Enter just the domain without https:// or www (e.g., 'ahrefs.com', 'hubspot.com'). The actor checks whether any URL from this domain appears in AI citations. NOT a brand name \u2014 use the ai-search-brand-monitor actor for brand name tracking.",
+      "editor": "textfield",
+      "prefill": "ahrefs.com"
+    },
+    "keywords": {
+      "title": "Keywords / topics to query",
+      "type": "array",
+      "description": "List of keywords or topics to ask AI platforms about. The actor submits topic-based queries (e.g., 'best resources for SEO') and checks whether your domain is cited as a source. Enter each topic as a separate item (e.g., ['SEO', 'keyword research', 'backlink analysis']). NOT brand names \u2014 use topics and categories your content covers.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      }
+    },
+    "targetUrls": {
+      "title": "Target URLs to track (optional)",
+      "type": "array",
+      "description": "Specific page URLs from your domain to monitor for citations (e.g., 'https://ahrefs.com/blog/seo-guide/'). When provided, the actor also tracks whether these exact pages are cited, not just the domain. Leave empty to track any page from the domain. Each URL must start with https://.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      }
+    },
+    "competitorDomains": {
+      "title": "Competitor domains to compare",
+      "type": "array",
+      "description": "Competitor website domains to highlight in the competing_domains field (e.g., ['semrush.com', 'moz.com']). When set, the summary's top_competing_domains list is filtered to these. Leave empty to see all domains cited alongside yours. Helps you measure share-of-voice vs specific competitors.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      }
+    },
+    "platforms": {
+      "title": "AI platforms to query",
+      "type": "array",
+      "description": "Which AI search platforms to query for citations. Valid values: 'perplexity' (Sonar with real-time citations), 'chatgpt' (OpenAI web search), 'claude' (Claude Sonnet 4.5 with live web_search tool), 'gemini' (Gemini 2.5 Flash with native Google Search grounding). Defaults to Perplexity, ChatGPT, and Gemini. Add 'claude' explicitly for deep audits.",
+      "editor": "stringList",
+      "default": [
+        "perplexity",
+        "chatgpt",
+        "gemini"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "queryTemplates": {
+      "title": "Query template categories",
+      "type": "array",
+      "description": "Built-in topic-query templates to run for each keyword. Options: 'topic_authority' (best resources/authoritative sites for X), 'how_to' (how to do X), 'what_is' (what is X / define X), 'comparison' (top tools and resources for X), 'expert_picks' (what experts recommend for X). Use customQueries instead when you have specific questions. Defaults to topic_authority, how_to, what_is.",
+      "editor": "stringList",
+      "default": [
+        "topic_authority",
+        "how_to",
+        "what_is"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "customQueries": {
+      "title": "Custom queries (optional)",
+      "type": "array",
+      "description": "Specific questions to submit to AI platforms for every keyword (e.g., 'Which tools do professional SEOs recommend for {keyword}?'). These run in addition to selected queryTemplates. Use plain English questions \u2014 the actor submits them verbatim. NOT query templates \u2014 these are literal prompts sent to AI.",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      }
+    },
+    "maxQueriesPerKeyword": {
+      "title": "Max queries per keyword",
+      "type": "integer",
+      "description": "Maximum number of unique queries to run per keyword across all templates. Higher values give more coverage but cost more credits \u2014 each query \u00d7 platform = one check at $0.096. Default is 3 queries per keyword. Set to 5 for a deeper audit.",
+      "default": 3,
+      "minimum": 1,
+      "maximum": 10,
+      "editor": "number"
+    },
+    "responseFormat": {
+      "title": "Response format",
+      "type": "string",
+      "description": "Controls how much of the AI's answer is stored in ai_answer_excerpt. 'concise' stores the first 300 characters (fewer tokens, lower storage). 'detailed' stores the first 600 characters (richer context for manual review). Does not affect which platforms are queried or what citations are tracked.",
+      "editor": "select",
+      "enum": [
+        "concise",
+        "detailed"
+      ],
+      "default": "detailed"
+    },
+    "webhookUrl": {
+      "title": "Webhook URL (optional)",
+      "type": "string",
+      "description": "An HTTPS URL that receives a POST request when the run completes. The payload is the full run summary JSON \u2014 visibility_score, citation_rate, content_gaps, top_cited_pages, recommendations. Compatible with Make.com, Zapier, n8n, Slack webhooks, and any HTTP endpoint.",
+      "editor": "textfield"
+    },
+    "demoMode": {
+      "title": "Demo / health check mode",
+      "type": "boolean",
+      "description": "Set to true to verify the actor is functional without making any AI API calls. The actor exits successfully with a confirmation message. Use for Apify scheduling tests, connectivity checks, or MCP tool validation without consuming credits.",
+      "editor": "checkbox",
+      "default": false
+    }
+  },
+  "required": []
+}

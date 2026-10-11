@@ -1,0 +1,41 @@
+{
+  "name": "ai-brand-monitor",
+  "displayName": "AI Brand Monitor",
+  "version": "0.1.2",
+  "description": "Monitor brand mentions and citations across ChatGPT, Perplexity, Gemini and Claude. Compare competitors, track AI share of voice and sentiment, review citation opportunities, and save clear GEO/AEO reports using your own Apify account and the official CLI.",
+  "author": {
+    "name": "Khadin Akbar"
+  },
+  "license": "MIT",
+  "icon": "./assets/icon.png",
+  "keywords": [
+    "ai-brand-monitoring",
+    "brand-monitor",
+    "ai-visibility",
+    "ai-search",
+    "ai-seo",
+    "geo",
+    "aeo",
+    "llmo",
+    "generative-engine-optimization",
+    "answer-engine-optimization",
+    "brand-mentions",
+    "citation-tracking",
+    "share-of-voice",
+    "competitor-analysis",
+    "sentiment-analysis",
+    "chatgpt",
+    "perplexity",
+    "gemini",
+    "claude",
+    "apify",
+    "apify-cli",
+    "brand-reputation"
+  ],
+  "homepage": "https://github.com/khadinakbarlabs/ai-brand-monitor#readme",
+  "repository": "https://github.com/khadinakbarlabs/ai-brand-monitor",
+  "documentationUrl": "https://github.com/khadinakbarlabs/ai-brand-monitor#readme",
+  "supportUrl": "https://github.com/khadinakbarlabs/ai-brand-monitor/issues",
+  "privacyPolicyUrl": "https://github.com/khadinakbarlabs/ai-brand-monitor/blob/main/PRIVACY.md",
+  "termsOfServiceUrl": "https://github.com/khadinakbarlabs/ai-brand-monitor/blob/main/TERMS.md"
+}

@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "title": "Run ID",
+      "description": "The Apify actor run ID that produced this record. Use this to group all checks from the same run for per-run aggregation and trend comparison across weekly runs.",
+      "example": "abc123XYZ"
+    },
+    "platform": {
+      "type": "string",
+      "title": "AI Platform",
+      "description": "The AI search platform that generated this response. One of: 'perplexity' (Perplexity AI with web search), 'chatgpt' (OpenAI ChatGPT with web search), 'claude' (Anthropic Claude), 'gemini' (Google Gemini with Google Search grounding).",
+      "example": "perplexity"
+    },
+    "query": {
+      "type": "string",
+      "title": "Search Query",
+      "description": "The exact search query or prompt submitted to the AI platform to check brand visibility.",
+      "example": "What are the best SEO tools like Ahrefs for 2026?"
+    },
+    "query_category": {
+      "type": "string",
+      "title": "Query Category",
+      "description": "The template category that generated this query, or 'custom' if provided directly. Categories: best_tools, alternatives, recommendations, reviews, comparisons, custom.",
+      "example": "best_tools"
+    },
+    "brand_name": {
+      "type": "string",
+      "title": "Brand Name",
+      "description": "The brand or company being monitored in this check.",
+      "example": "Ahrefs"
+    },
+    "brand_mentioned": {
+      "type": "boolean",
+      "title": "Brand Mentioned",
+      "description": "True if the brand name (or any alias) appears anywhere in the AI's response. False if the AI did not mention the brand at all. This is the primary signal for GEO visibility.",
+      "example": true
+    },
+    "brand_mention_count": {
+      "type": "integer",
+      "title": "Brand Mention Count",
+      "description": "Total number of times the brand name (including aliases) appears in the AI's response. Higher counts suggest the brand is a more central recommendation.",
+      "example": 3
+    },
+    "brand_share_of_voice": {
+      "type": "number",
+      "title": "Brand Share of Voice",
+      "description": "Brand mention count divided by (brand mentions + sum of competitor mentions) for this single AI response. 0\u20131 scale (e.g. 0.6 = brand has 60% of competitor-relevant mentions). Returns 0 when neither brand nor competitors are mentioned. The most decision-relevant single metric for share-of-voice analysis.",
+      "example": 0.667
+    },
+    "mention_position_score": {
+      "type": "integer",
+      "title": "Mention Position Score",
+      "description": "Measures how early in the response the brand first appears. Scale: 1 = brand is mentioned in the very first 10% of the response (most prominent), 10 = not mentioned at all. Lower scores are better \u2014 a score of 1-2 means the AI leads with your brand.",
+      "example": 2
+    },
+    "mention_context": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Mention Context",
+      "description": "A ~330-character excerpt from the AI response surrounding the first mention of the brand, showing the context in which the brand was recommended or discussed. Null if the brand was not mentioned.",
+      "example": "...Ahrefs remains the top choice for SEO professionals due to its extensive backlink database and accurate keyword difficulty scores. It's particularly strong for..."
+    },
+    "is_cited_as_source": {
+      "type": "boolean",
+      "title": "Cited as Source",
+      "description": "True if the brand's domain appears in the AI's cited sources or footnotes. For Perplexity and Gemini (which cite URLs), this means the brand's website was directly referenced. For ChatGPT and Claude, this detects domain mentions in the response text.",
+      "example": true
+    },
+    "cited_url": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Brand Citation URL",
+      "description": "The specific URL from the AI's cited sources that belongs to the brand's domain. Null if the brand was not cited as a source. Most useful with Perplexity (native citations) and Gemini (Google Search grounding).",
+      "example": "https://ahrefs.com/blog/seo-tools/"
+    },
+    "cited_urls": {
+      "type": "array",
+      "title": "All Cited URLs",
+      "description": "Array of all URLs cited by the AI in its response. Perplexity and Gemini provide these natively. Empty array for Claude. Use this to see the full competitive citation landscape \u2014 which domains the AI trusts as authoritative sources.",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "https://ahrefs.com/blog/seo-tools/",
+        "https://semrush.com/",
+        "https://moz.com/"
+      ]
+    },
+    "total_sources_cited": {
+      "type": "integer",
+      "title": "Total Sources Cited",
+      "description": "The total number of URLs the AI cited in its response. A higher number means a richer source landscape. Zero for platforms that don't return citations (Claude).",
+      "example": 8
+    },
+    "sentiment": {
+      "type": "string",
+      "title": "Brand Sentiment",
+      "description": "The sentiment of the AI's language when discussing your brand in this response. One of: 'positive' (AI uses endorsing, recommending language), 'neutral' (factual or mixed), 'negative' (critical, cautionary language). Derived from keyword analysis of brand-relevant sentences.",
+      "example": "positive"
+    },
+    "competitor_mentions": {
+      "type": "array",
+      "title": "Competitor Mentions",
+      "description": "List of competitor brand names (from your competitors input) that were mentioned in the same AI response as your brand. Empty array if no competitors were mentioned or if no competitors were configured. Pair with brand_share_of_voice to quantify the competitive context.",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "Semrush",
+        "Moz"
+      ]
+    },
+    "competitor_mention_count": {
+      "type": "integer",
+      "title": "Competitor Mention Count",
+      "description": "Total number of times any competitor brand was mentioned in this AI response (sum across all competitors). Used to compute brand_share_of_voice. 0 if no competitors were configured or mentioned.",
+      "example": 4
+    },
+    "ai_response_summary": {
+      "type": "string",
+      "title": "AI Response Summary",
+      "description": "The first 800 characters of the AI platform's full response text. Provides context for the brand mention without storing the entire (potentially large) response.",
+      "example": "When it comes to SEO tools in 2026, Ahrefs continues to be the industry standard for backlink analysis and keyword research..."
+    },
+    "model_used": {
+      "type": "string",
+      "title": "AI Model Used",
+      "description": "The specific AI model version queried for this record. Useful for tracking data quality across model upgrades \u2014 e.g. comparing brand mentions before/after a model version change.",
+      "example": "sonar"
+    },
+    "scraped_at": {
+      "type": "string",
+      "title": "Checked At",
+      "description": "ISO 8601 timestamp of when this brand visibility check was performed. Use this for trend analysis \u2014 run the actor weekly and compare brand_mentioned rates and mention_position_score over time.",
+      "example": "2026-03-28T14:30:00.000Z"
+    }
+  },
+  "required": [
+    "platform",
+    "query",
+    "brand_name",
+    "brand_mentioned",
+    "scraped_at"
+  ]
+}

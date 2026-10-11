@@ -1,0 +1,6 @@
+interface:
+  display_name: "Brand Competitors"
+  short_description: "Compare sampled brand and competitor mentions"
+  default_prompt: "Use $brand-competitors to compare my selected brand report with its configured competitors."
+policy:
+  allow_implicit_invocation: true

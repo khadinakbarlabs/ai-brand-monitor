@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "title": "Run ID",
+      "description": "Unique Apify actor run ID. Use to group all checks from the same run when trend-comparing weekly visibility scans.",
+      "example": "abc123XYZ"
+    },
+    "platform": {
+      "type": "string",
+      "title": "AI Platform",
+      "description": "AI search platform that generated this response. Values: 'perplexity', 'chatgpt', 'claude', 'gemini'. All run real-time web search \u2014 not static knowledge.",
+      "example": "perplexity"
+    },
+    "keyword": {
+      "type": "string",
+      "title": "Keyword / Topic",
+      "description": "The keyword or topic from your input that this query was generated for. Use this to group results by topic and identify per-keyword visibility gaps.",
+      "example": "SEO"
+    },
+    "query": {
+      "type": "string",
+      "title": "Query Submitted",
+      "description": "The exact question submitted to the AI platform to probe whether your domain would be cited as a source for this topic.",
+      "example": "What are the best resources and guides for learning about SEO?"
+    },
+    "query_template": {
+      "type": "string",
+      "title": "Query Template",
+      "description": "Template category that generated this query, or 'custom' if user-provided. Values: topic_authority, how_to, what_is, comparison, expert_picks, custom.",
+      "example": "topic_authority"
+    },
+    "target_domain": {
+      "type": "string",
+      "title": "Target Domain",
+      "description": "The domain being tracked for citations in this check. Normalized: no www., no https://.",
+      "example": "ahrefs.com"
+    },
+    "domain_cited": {
+      "type": "boolean",
+      "title": "Domain Cited",
+      "description": "True if any URL from target_domain appears in the AI platform's cited sources for this query. This is the primary visibility signal \u2014 false means AI answered without crediting your site.",
+      "example": true
+    },
+    "citation_rank": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "Citation Rank",
+      "description": "1-based position of the first target_domain URL in the AI's source list. 1 = your site is the primary source; higher numbers = less prominent. Null means the domain was not cited at all. Lower is better.",
+      "example": 2
+    },
+    "domain_citation_count": {
+      "type": "integer",
+      "title": "Domain Citation Count",
+      "description": "Number of distinct URLs from target_domain that appeared in the AI's citations for this query. 0 = not cited; 2+ = multiple pages from your site were cited.",
+      "example": 2
+    },
+    "cited_page_url": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "First Cited Page URL",
+      "description": "The URL of the first page from target_domain that was cited in the AI's sources. Null if domain was not cited. Use this to identify which content is driving your AI search visibility.",
+      "example": "https://ahrefs.com/blog/seo-basics/"
+    },
+    "cited_pages": {
+      "type": "array",
+      "title": "All Cited Pages",
+      "description": "All page URLs from target_domain that appeared in the AI's citation list for this query. Empty array if not cited. Multiple entries mean several of your pages were referenced as sources.",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "https://ahrefs.com/blog/seo-basics/",
+        "https://ahrefs.com/blog/keyword-research/"
+      ]
+    },
+    "page_from_targets_cited": {
+      "type": "boolean",
+      "title": "Target URL Cited",
+      "description": "True if one of the user-specified targetUrls was cited in this response. Only meaningful when targetUrls was provided in input. False when no specific target pages were configured.",
+      "example": false
+    },
+    "content_gap": {
+      "type": "boolean",
+      "title": "Content Gap",
+      "description": "True when the AI cited sources for this query BUT none came from target_domain. This is an actionable signal: the AI is answering this topic using competitor content. False when no sources were cited (some platforms) or when the domain was cited.",
+      "example": true
+    },
+    "total_sources_cited": {
+      "type": "integer",
+      "title": "Total Sources Cited",
+      "description": "Total number of URLs cited by the AI in this response. Use with ai_coverage_ratio to understand how much of the source landscape your domain occupies. Zero when the platform returns no citations.",
+      "example": 7
+    },
+    "ai_coverage_ratio": {
+      "type": "number",
+      "title": "AI Coverage Ratio",
+      "description": "Fraction of total cited sources that belong to target_domain. Range 0.0 to 1.0. E.g., 0.25 means 2 of 8 cited sources are from your domain. Zero if not cited.",
+      "example": 0.29
+    },
+    "competing_domains": {
+      "type": "array",
+      "title": "Competing Domains",
+      "description": "All other domains cited by the AI for this query (excluding target_domain). These are sites the AI treats as authoritative sources alongside or instead of yours. Use the top_competing_domains in the run summary to see which competitors appear most frequently across all checks.",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "semrush.com",
+        "moz.com",
+        "backlinko.com"
+      ]
+    },
+    "ai_answer_excerpt": {
+      "type": "string",
+      "title": "AI Answer Excerpt",
+      "description": "First 300\u2013600 characters of the AI platform's response text (length depends on responseFormat input). Provides context for why your domain was or wasn't cited without storing the full response.",
+      "example": "When it comes to learning SEO, several resources stand out as particularly authoritative. Ahrefs Blog covers technical SEO, keyword research..."
+    },
+    "model_used": {
+      "type": "string",
+      "title": "AI Model Used",
+      "description": "The specific AI model version used for this check. Track model upgrades over time \u2014 visibility can change when platforms update their search models.",
+      "example": "perplexity/sonar"
+    },
+    "checked_at": {
+      "type": "string",
+      "title": "Checked At",
+      "description": "ISO 8601 timestamp of when this visibility check was performed. Run the actor weekly and compare citation_rate and citation_rank trends over time to measure AEO progress.",
+      "example": "2026-05-01T14:30:00.000Z"
+    }
+  },
+  "required": [
+    "platform",
+    "keyword",
+    "query",
+    "target_domain",
+    "domain_cited",
+    "content_gap",
+    "checked_at"
+  ]
+}

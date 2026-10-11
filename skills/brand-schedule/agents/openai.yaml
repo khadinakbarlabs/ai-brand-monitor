@@ -1,0 +1,6 @@
+interface:
+  display_name: "Brand Schedule"
+  short_description: "Plan approved recurring AI brand collection"
+  default_prompt: "Use $brand-schedule to propose a recurring brand panel, cadence, service controls and budget before activation."
+policy:
+  allow_implicit_invocation: true

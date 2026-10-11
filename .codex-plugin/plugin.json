@@ -1,0 +1,44 @@
+{
+  "name": "ai-brand-monitor",
+  "version": "0.1.2",
+  "description": "Monitor brand mentions and citations across ChatGPT, Perplexity, Gemini and Claude. Compare competitors, track AI share of voice and sentiment, review citation opportunities, and save clear GEO/AEO reports using your own Apify account and the official CLI.",
+  "author": {
+    "name": "Khadin Akbar"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ai-brand-monitoring",
+    "ai-visibility",
+    "geo",
+    "aeo",
+    "brand-mentions",
+    "citation-tracking",
+    "share-of-voice",
+    "competitor-analysis",
+    "sentiment-analysis",
+    "apify-cli"
+  ],
+  "skills": "./skills",
+  "requires_local_executor": true,
+  "interface": {
+    "displayName": "AI Brand Monitor",
+    "shortDescription": "Track AI mentions & citations",
+    "longDescription": "Find out how your brand appears in AI search answers. AI Brand Monitor helps marketers, founders and agencies build a repeatable prompt panel, check brand mentions and citations, compare competitors and AI share of voice, review sentiment evidence, and save an actionable GEO/AEO report. It supports ChatGPT, Perplexity and Gemini, with Claude available when selected. Use your own Apify account through the official external Apify CLI. Six focused skills cover onboarding, audits, competitors, citation opportunities, comparable trends and optional monitoring setup. Reports show sample size, failed checks, source links and next actions. Monitoring runs need explicit budget approval; recurring collection requires a configured service. Measurements describe sampled API answers and do not guarantee consumer-interface rankings, traffic, conversions or future results. Requires a local agent host with terminal and file access; plain browser chat cannot run the CLI.",
+    "developerName": "Khadin Akbar",
+    "category": "Data & Analytics",
+    "logo": "./assets/icon.png",
+    "composerIcon": "./assets/icon.png",
+    "release_notes": "Public skills source release with verified documentation, privacy, terms and support links. Includes the original six-skill CLI workflow, approved teal radar icon, contained examples and explicit budget/evidence boundaries.",
+    "defaultPrompt": [
+      "Help me set up AI brand monitoring for my website.",
+      "Compare my brand's AI mentions and citations with competitors.",
+      "Review my latest brand report and recommend the next three actions."
+    ],
+    "capabilities": [],
+    "websiteURL": "https://github.com/khadinakbarlabs/ai-brand-monitor#readme",
+    "privacyPolicyURL": "https://github.com/khadinakbarlabs/ai-brand-monitor/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/khadinakbarlabs/ai-brand-monitor/blob/main/TERMS.md"
+  },
+  "homepage": "https://github.com/khadinakbarlabs/ai-brand-monitor#readme",
+  "repository": "https://github.com/khadinakbarlabs/ai-brand-monitor"
+}

@@ -1,0 +1,11 @@
+{
+  "targetDomain": "northstar.example",
+  "keywords": ["team note-taking"],
+  "targetUrls": ["https://northstar.example/guides/research-notes"],
+  "competitorDomains": ["harbor.example"],
+  "platforms": ["perplexity"],
+  "queryTemplates": [],
+  "customQueries": ["Which guides explain how a small research team should organize notes and sources?"],
+  "maxQueriesPerKeyword": 1,
+  "responseFormat": "detailed"
+}

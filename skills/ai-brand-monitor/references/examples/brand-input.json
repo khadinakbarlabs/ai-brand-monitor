@@ -1,0 +1,13 @@
+{
+  "brandName": "Northstar Notes",
+  "brandDomain": "northstar.example",
+  "brandAliases": ["Northstar Notes"],
+  "competitors": ["Harbor Notes", "Cedar Workspace"],
+  "platforms": ["perplexity", "chatgpt", "gemini"],
+  "queryTemplates": [],
+  "customQueries": ["Which note-taking apps help small research teams organize sources?", "Which shared note apps support a clear review workflow for small teams?"],
+  "querySelectionMode": "custom_only",
+  "maxQueriesPerPlatform": 2,
+  "responseFormat": "detailed",
+  "industry": "Team note-taking"
+}

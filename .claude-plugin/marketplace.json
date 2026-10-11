@@ -1,0 +1,14 @@
+{
+  "name": "ai-brand-monitor-marketplace",
+  "owner": {
+    "name": "Khadin Akbar"
+  },
+  "plugins": [
+    {
+      "name": "ai-brand-monitor",
+      "source": "./",
+      "description": "Monitor brand mentions and citations across ChatGPT, Perplexity, Gemini and Claude. Compare competitors, track AI share of voice and sentiment, review citation opportunities, and save clear GEO/AEO reports using your own Apify account and the official CLI."
+    }
+  ],
+  "description": "AI Brand Monitor skills for brand mentions, citations, competitor share and matched-panel reporting through the official Apify CLI."
+}

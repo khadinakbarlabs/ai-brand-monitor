@@ -1,0 +1,6 @@
+interface:
+  display_name: "Brand Citations"
+  short_description: "Review AI source evidence and content opportunities"
+  default_prompt: "Use $brand-citations to map the source evidence in my brand report and propose three content briefs."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,7 @@
+.DS_Store
+.ai-brand-monitor/
+.env*
+storage/
+node_modules/
+*.zip
+*.tar.gz
